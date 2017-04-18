@@ -52,8 +52,8 @@ const char kDevChannelOnly[] =
 const char kRequiresFramelessWindow[] =
     "This function requires a frameless window (frame:none).";
 
-const char kAlwaysOnTopPermission[] =
-    "The \"app.window.alwaysOnTop\" permission is required.";
+//const char kAlwaysOnTopPermission[] =
+//    "The \"app.window.alwaysOnTop\" permission is required.";
 
 const char kInvalidParameters[] = "Invalid parameters.";
 
@@ -366,11 +366,14 @@ AppCurrentWindowInternalSetShapeFunction::Run() {
 
 ExtensionFunction::ResponseAction
 AppCurrentWindowInternalSetAlwaysOnTopFunction::Run() {
+
+#if 0 // NWJS#5738
   // TODO(devlin): Can't this be done with the feature files?
   if (!extension()->permissions_data()->HasAPIPermission(
           extensions::APIPermission::kAlwaysOnTopWindows)) {
     return RespondNow(Error(kAlwaysOnTopPermission));
   }
+#endif
 
   std::unique_ptr<SetAlwaysOnTop::Params> params(
       SetAlwaysOnTop::Params::Create(*args_));
